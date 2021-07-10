@@ -5,11 +5,7 @@ class DocsPage extends Component {
     return (
       <div>
         <div className="stackedit__html">
-          <h1 id="thành-viên">Thành viên</h1>
-          <ol>
-            <li>Nguyễn Quốc Việt - <a href="mailto:vietsaclo@gmail.com">vietsaclo@gmail.com</a></li>
-            <li>Bùi Vũ Trường -</li>
-          </ol>
+          
           <ul>
             <li>Wax Docs: <a href="https://developer.wax.io/api-docs-tools/">https://developer.wax.io/api-docs-tools/</a></li>
             <li>EOSIO Docs: <a href="https://developers.eos.io/welcome/latest/index">https://developers.eos.io/welcome/latest/index</a></li>
