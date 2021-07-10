@@ -38,3 +38,20 @@
     transform: rotate(360deg);
   }
 }
+
+.menu {
+  background-color: #000;
+  height: 60px;
+  line-height: 60px;
+  color: #fff;
+}
+
+.menu-item a {
+  color: #cecece;
+  margin-right: 15px;
+  font-weight: bold;
+}
+
+img, svg {
+  vertical-align: 0%;
+}
