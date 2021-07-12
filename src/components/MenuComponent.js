@@ -16,10 +16,27 @@ class MenuComponent extends Component {
   }
 
   componentDidMount() {
-    const userName = PublicModules.fun_getUserLoginLocalStorage();
-    this.setState({
-      userLoged: userName,
-    });
+    const userLoged = PublicModules.fun_getUserLoginLocalStorage();
+    if (userLoged) {
+      // relogin by public keys
+      WaxServices.fun_loginWaxWithPubKeysAsync(userLoged)
+        .then((result) => {
+          // error ?
+          if (!result) {
+            message.error('Login failure!');
+            // remember logout (clean local storage).
+            this.dispatch({
+              type: ActionsType.USER_LOGOUT,
+              value: null,
+            });
+            return;
+          }
+          this.dispatch({
+            type: ActionsType.USER_LOGIN,
+            value: result,
+          });
+        });
+    }
   }
 
   buidMenuItemUI(gitBranch) {
@@ -67,18 +84,16 @@ class MenuComponent extends Component {
   }
 
   async btnLoginClicked() {
-    const userName = await WaxServices.fun_loginWaxAsync();
-    if (!userName) {
+    const userLoged = await WaxServices.fun_loginWaxAsync();
+    if (!userLoged) {
       message.error('Login Error!');
       return;
     }
-    message.success('Wellcome: ' + userName);
+    message.success('Wellcome: ' + userLoged.userName);
     // dispatch store user
     this.dispatch({
       type: ActionsType.USER_LOGIN,
-      value: {
-        userName: userName,
-      }
+      value: userLoged,
     });
   }
 

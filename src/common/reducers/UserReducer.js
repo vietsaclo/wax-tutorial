@@ -1,9 +1,9 @@
 import { PublicModules } from "..";
 import { ActionsType } from "../actions-type"
-import { LocalStorageKeys } from "../keys";
 
 const UserReducerInitialState = {
   userName: null,
+  keys: null,
 }
 
 const UserReducer = (state = UserReducerInitialState, action) => {
@@ -18,6 +18,7 @@ const UserReducer = (state = UserReducerInitialState, action) => {
       PublicModules.fun_removeUserLoginLocalStorage();
       return Object.assign({}, state, {
         userName: null,
+        keys: null,
       });
     default:
       return state
