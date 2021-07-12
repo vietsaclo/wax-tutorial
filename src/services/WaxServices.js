@@ -67,18 +67,21 @@ class WaxServices {
     return result;
   };
 
-  static fun_takeAction = async (action, dataValue) => {
+  static fun_takeAction = async ({
+    account = process.env.REACT_APP_DAPP_ACCOUNT,
+    action = 'replace_action',
+    dataValue = {},
+  }) => {
     const loged = PublicModules.fun_getUserLoginLocalStorage();
     if (!loged) {
       message.error('Login requre!');
       return;
     }
-    console.log('----------: ', action);
     // Main call to blockchain after setting action, account_name and data
     try {
       const resultWithConfig = await wax.api.transact({
         actions: [{
-          account: process.env.REACT_APP_DAPP_ACCOUNT,
+          account: account,
           name: action,
           authorization: [{
             actor: loged.userName,
@@ -90,9 +93,9 @@ class WaxServices {
         blocksBehind: 3,
         expireSeconds: 1200,
       });
-      console.log(wax);
       return resultWithConfig;
     } catch (err) {
+      PublicModules.fun_log(err);
       return null;
     }
   }

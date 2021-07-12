@@ -89,7 +89,6 @@ class MenuComponent extends Component {
       message.error('Login Error!');
       return;
     }
-    console.log(userLoged);
     message.success('Wellcome: ' + userLoged.userName);
     // dispatch store user
     this.dispatch({
