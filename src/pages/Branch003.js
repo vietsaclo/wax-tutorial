@@ -21,6 +21,10 @@ class Branch003Page extends Component {
     const result = await WaxServices.fun_takeAction('hi', {
       nm: value,
     });
+    if (!result) {
+      message.error('Error!');
+      return;
+    }
     this.setState({
       data: result,
       tbName: '',

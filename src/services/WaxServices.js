@@ -1,15 +1,20 @@
 import * as waxjs from "@waxio/waxjs/dist";
 import { message } from "antd";
-import { PublicModules } from "../common";
+import { PublicModules, UserLoged } from "../common";
 
-const wax = new waxjs.WaxJS(process.env.REACT_APP_API_ENDPOINT, null, null, false);
+let wax = new waxjs.WaxJS(process.env.REACT_APP_API_ENDPOINT, null, null, false);
 
 class WaxServices {
   static fun_loginWax = () => {
     return new Promise((resolve, reject) => {
       wax.login()
         .then((userName) => {
-          if (userName) resolve(userName);
+          if (userName) {
+            const userLoged = new UserLoged();
+            userLoged.userName = userName;
+            userLoged.keys = wax.pubKeys;
+            resolve(userLoged);
+          }
           else reject(null);
         })
         .catch((err) => {
@@ -18,14 +23,48 @@ class WaxServices {
     });
   };
 
+  static fun_loginWaxWithPubKeys = (userLoged) => {
+    return new Promise((resolve, reject) => {
+      wax = new waxjs.WaxJS(
+        process.env.REACT_APP_API_ENDPOINT,
+        userLoged.userName,
+        userLoged.keys.split(','),
+        false,
+      );
+      if (!wax) reject('BAD_USERLOGED');
+      wax.login()
+        .then((userName) => {
+          if (userName) {
+            const userLoged = new UserLoged();
+            userLoged.userName = userName;
+            userLoged.keys = wax.pubKeys;
+            resolve(userLoged);
+          }
+          else reject('BAD_USERLOGED');
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  };
+
   static fun_loginWaxAsync = async () => {
-    let userName = '';
-    userName = await WaxServices.fun_loginWax()
+    let userLoged = new UserLoged();
+    userLoged = await WaxServices.fun_loginWax()
       .catch((_error) => {
-        userName = null;
+        userLoged = null;
       });
 
-    return userName;
+    return userLoged;
+  };
+
+  static fun_loginWaxWithPubKeysAsync = async (userLoged) => {
+    let result = new UserLoged();
+    result = await WaxServices.fun_loginWaxWithPubKeys(userLoged)
+      .catch((_err) => {
+        result = null;
+      });
+    return result;
   };
 
   static fun_takeAction = async (action, dataValue) => {
@@ -34,11 +73,7 @@ class WaxServices {
       message.error('Login requre!');
       return;
     }
-    const actor = await WaxServices.fun_loginWaxAsync();
-    if (!actor) {
-      message.error('Login requre!');
-      return;
-    }
+    console.log('----------: ', action);
     // Main call to blockchain after setting action, account_name and data
     try {
       const resultWithConfig = await wax.api.transact({
@@ -46,7 +81,7 @@ class WaxServices {
           account: process.env.REACT_APP_DAPP_ACCOUNT,
           name: action,
           authorization: [{
-            actor: actor,
+            actor: loged.userName,
             permission: 'active',
           }],
           data: dataValue,
@@ -55,6 +90,7 @@ class WaxServices {
         blocksBehind: 3,
         expireSeconds: 1200,
       });
+      console.log(wax);
       return resultWithConfig;
     } catch (err) {
       return null;
