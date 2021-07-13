@@ -18,3 +18,10 @@ spec-version: 0.0.2
 title: addkeyvalue
 summary: description addkeyvalue
 icon:
+
+<h1 class="contract">rmkeyvalue</h1>
+---
+spec-version: 0.0.2
+title: rmkeyvalue
+summary: description rmkeyvalue
+icon:
