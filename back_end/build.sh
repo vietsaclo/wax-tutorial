@@ -1,0 +1,1 @@
+eosio-cpp src/wax.cpp -o build/wax.wasm
