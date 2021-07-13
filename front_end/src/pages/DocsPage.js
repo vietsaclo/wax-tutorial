@@ -5,7 +5,7 @@ class DocsPage extends Component {
     return (
       <div>
         <div className="stackedit__html">
-          
+
           <ul>
             <li>Wax Docs: <a href="https://developer.wax.io/api-docs-tools/">https://developer.wax.io/api-docs-tools/</a></li>
             <li>EOSIO Docs: <a href="https://developers.eos.io/welcome/latest/index">https://developers.eos.io/welcome/latest/index</a></li>
@@ -94,7 +94,7 @@ class DocsPage extends Component {
           </ol>
           <ul>
             <li><code>cleos wallet create --to-console -n wallet1</code>.</li>
-            <li><strong>Lưu ý</strong> nhớ giữ lại mật khẩu ví. Ví dụ mật khẩu ví của tôi là: <em>PW5JgrZ4o8NeVTV7d3UJrQXC6XC3CrST82wkdxN9qKTf3bikTZcus</em></li>
+            <li className='text-break'><strong>Lưu ý</strong> nhớ giữ lại mật khẩu ví. Ví dụ mật khẩu ví của tôi là: <em>PW5JgrZ4o8NeVTV7d3UJrQXC6XC3CrST82wkdxN9qKTf3bikTZcus</em></li>
           </ul>
           <ol start={9}>
             <li>Mở ví vừa tạo lên:</li>
