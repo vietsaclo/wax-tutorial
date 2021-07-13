@@ -23,13 +23,17 @@ public:
   //second parameter = pointer to the action function
   using hi_action = action_wrapper<"hi"_n, &wax::hi>;
 
-  //===== Action 2
+  //===== Action 2: Hello world
   ACTION helloworld(name text);
   using helloWorld_action = action_wrapper<"helloworld"_n, &wax::helloworld>;
 
-  //===== Action 3
+  //===== Action 3: Add row to main net
   ACTION addkeyvalue(name username, name key, std::string value);
   using addkeyvalue_action = action_wrapper<"addkeyvalue"_n, &wax::addkeyvalue>;
+
+  //===== Action 4: Remove row to main net
+  ACTION rmkeyvalue(name username, name key);
+  using rmkeyvalue_action = action_wrapper<"rmkeyvalue"_n, &wax::rmkeyvalue>;
 
 private:
   struct [[eosio::table]] tbkeysvalues
