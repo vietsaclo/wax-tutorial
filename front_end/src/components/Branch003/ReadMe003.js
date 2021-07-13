@@ -6,7 +6,7 @@ const { Panel } = Collapse;
 class ReadMe003 extends Component {
   render() {
     return (
-      <Collapse>
+      <Collapse className='mt-4 mb-4'>
         <Panel header="Branch 003 Document" key="1">
           <p className='h4'>
             Giới thiệu tổng quan.

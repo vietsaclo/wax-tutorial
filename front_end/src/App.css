@@ -1,5 +1,4 @@
 @import '~antd/dist/antd.css';
-
 .App {
   text-align: center;
 }
@@ -41,9 +40,24 @@
 
 .menu {
   background-color: #000;
-  height: 60px;
-  line-height: 60px;
   color: #fff;
+  height: auto;
+}
+
+.float-left {
+  float: left;
+}
+
+.menu-item {
+  padding: 7px;
+  height: 45px;
+  line-height: 35px;
+}
+
+.clear {
+  content: "";
+  display: table;
+  clear: both;
 }
 
 .menu-item a {

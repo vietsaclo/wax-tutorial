@@ -41,14 +41,14 @@ class MenuComponent extends Component {
 
   buidMenuItemUI(gitBranch) {
     return (
-      <div className='menu-item float-start'>
+      <div className='float-left menu-item'>
         <NavLink to={'/' + gitBranch}
           activeStyle={{
             fontWeight: "bold",
             color: 'yellow',
             textTransform: 'uppercase',
           }}
-        >Git Branch {gitBranch}</NavLink>
+        >GB {gitBranch}</NavLink>
       </div>
     );
   }
@@ -72,7 +72,8 @@ class MenuComponent extends Component {
   getUserLogedUI() {
     if (this.state.userLoged)
       return (
-        <Button onClick={() => this.btnLogoutClicked()} type='link' className='text-white'>
+        <Button
+          onClick={() => this.btnLogoutClicked()} type='primary' className='text-white fw-bold'>
           {this.state.userLoged}
         </Button>
       );
@@ -100,7 +101,7 @@ class MenuComponent extends Component {
   render() {
     return (
       <div className='container-fluid menu'>
-        <div className='menu-item float-start'>
+        <div className='menu-item float-left'>
           <NavLink to='/'
             isActive={(_match, location) => {
               return location.pathname === '/';
@@ -113,16 +114,14 @@ class MenuComponent extends Component {
           >Docs</NavLink>
         </div>
 
+        <div className='menu-item' style={{ float: 'right' }}>{this.getUserLogedUI()}</div>
+
         {this.buidMenuItemUI('003')}
 
         {this.buidMenuItemUI('004')}
 
-        <div className='float-end'>
-          {this.getUserLogedUI()}
-        </div>
-
-        {/* clear-fix */}
-        <br />
+        {this.buidMenuItemUI('005')}
+        <div className='clear'></div>
       </div >
     );
   }
